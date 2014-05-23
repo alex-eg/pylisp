@@ -147,6 +147,19 @@ def pylisp_plus(*par_list):
     vals = map(pylisp_eval, par_list)
     return reduce(op.add, vals, 0)
 
+def pylisp_sub(*par_list):
+    vals = map(pylisp_eval, par_list)
+    return reduce(op.sub, vals, 0)
+
+def pylisp_mul(*par_list):
+    vals = map(pylisp_eval, par_list)
+    return reduce(op.mul, vals, 1)
+
+def pylisp_eq(*par_list):
+    vals = map(pylisp_eval, par_list)
+    result = reduce(op.eq, vals, True)
+    return result
+
 def pylisp_define(*par_list):
     if len(par_list) != 2:
         print("Bad define statement")
@@ -178,6 +191,9 @@ def pylisp_define(*par_list):
 
 symtab['define'] = pylisp_define
 symtab['+'] = pylisp_plus
+symtab['-'] = pylisp_sub
+symtab['*'] = pylisp_mul
+symtab['='] = pylisp_eq
 
 while 1:
     try:
