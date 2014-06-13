@@ -1,4 +1,4 @@
-# Lexer
+#!/usr/bin/python
 
 tokens = (
     'LPAREN', 'RPAREN', 'NUMBER', 'SYMBOL'
@@ -194,6 +194,10 @@ symtab['+'] = pylisp_plus
 symtab['-'] = pylisp_sub
 symtab['*'] = pylisp_mul
 symtab['='] = pylisp_eq
+
+print('Welcome to pylisp')
+import sys
+print('running on python v.{0}.{1}.{2}'.format(*sys.version_info))
 
 while 1:
     try:
