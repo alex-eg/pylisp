@@ -164,6 +164,19 @@ def pylisp_eq(*par_list):
     result = reduce(lambda acc, val: acc and (val == vals[0]), vals[1:], True)
     return result
 
+def pylisp_if(*par_list):
+    if len(par_list) < 2 or len(par_list) > 3:
+        print("Bad if statement")
+        raise
+    predicate = pylisp_eval(par_list[0])
+    if predicate:
+        return pylisp_eval(par_list[1])
+    else:
+        if len(par_list) == 3:
+            return pylisp_eval(par_list[2])
+        else:
+            return pylisp_eval(('sym', 'nil'))
+
 def pylisp_define(*par_list):
     if len(par_list) != 2:
         print("Bad define statement")
@@ -198,6 +211,7 @@ symtab['+'] = pylisp_plus
 symtab['-'] = pylisp_sub
 symtab['*'] = pylisp_mul
 symtab['='] = pylisp_eq
+symtab['if'] = pylisp_if
 
 print('Welcome to pylisp')
 import sys
