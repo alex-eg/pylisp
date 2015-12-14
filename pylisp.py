@@ -160,8 +160,8 @@ def pylisp_mul(*par_list):
     return reduce(op.mul, vals, 1)
 
 def pylisp_eq(*par_list):
-    vals = map(pylisp_eval, par_list)
-    result = reduce(op.eq, vals, True)
+    vals = list(map(pylisp_eval, par_list))
+    result = reduce(lambda acc, val: acc and (val == vals[0]), vals[1:], True)
     return result
 
 def pylisp_define(*par_list):
