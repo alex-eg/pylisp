@@ -149,7 +149,11 @@ def pylisp_plus(*par_list):
 
 def pylisp_sub(*par_list):
     vals = map(pylisp_eval, par_list)
-    return reduce(op.sub, vals, 0)
+    vals = list(vals)
+    if len(vals) == 1:
+        return -vals[0]
+    else:
+        return reduce(op.sub, vals[1:], vals[0])
 
 def pylisp_mul(*par_list):
     vals = map(pylisp_eval, par_list)
