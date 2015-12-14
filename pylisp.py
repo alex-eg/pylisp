@@ -8,7 +8,7 @@ t_LPAREN = r'\('
 t_RPAREN = r'\)'
 
 def t_NUMBER(t):
-    r'\d+'
+    r'-?\d+'
     try:
         t.value = int(t.value)
     except ValueError:
@@ -41,7 +41,7 @@ def p_expression(t):
     t[0] = t[1]
 
 def p_atom(t):
-    '''atom : NUMBER 
+    '''atom : NUMBER
             | SYMBOL'''
     if isinstance(t[1], int):
         t[0] = ('num', t[1])
@@ -59,13 +59,13 @@ def p_expression_list(t):
     '''expression_list : expression
                        | expression_list expression'''
     if len(t) == 2: t[0] = [t[1]]
-    else: 
+    else:
         t[0] = t[1]
-        t[0].append(t[2])    
-    
+        t[0].append(t[2])
+
 def p_error(t):
     if t == None: print ("Unexpected end of input!")
-    else: 
+    else:
         print("Syntax error at {0}".format(t.value))
 
 import ply.yacc as yacc
@@ -131,7 +131,7 @@ def pylisp_eval_list(list_contents):
             bind_formal_parameters[fun_args[i]] = parameters[i]
         old_symtab = symtab
         symtab.update(bind_formal_parameters)
-        
+
         fun_body = fun[1]
         value = pylisp_eval(fun_body)
         symtab = old_symtab
@@ -179,12 +179,12 @@ def pylisp_define(*par_list):
         if not check_arguments:
             print("Arguments name must be symbols")
             raise
-        
+
         fun_arg_names = list(map(p_val, fun_signature_list[1:]))
-        
+
         fun_body = par_list[1]
-        
-        symtab[fun_name] = (fun_arg_names, fun_body)            
+
+        symtab[fun_name] = (fun_arg_names, fun_body)
     else:
         print("Cannot define a literal")
         raise
